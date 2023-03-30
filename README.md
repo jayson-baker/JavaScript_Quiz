@@ -24,6 +24,10 @@ WHEN the game is over
 THEN I can save my initials and score
 ```
 
+## Screenshot
+
+![screenshot1](./assets/images/Screenshot%202023-03-30%20013126.png)
+
 ## Link to Live Page
 
 https://jayson-baker.github.io/JavaScript_Quiz/
