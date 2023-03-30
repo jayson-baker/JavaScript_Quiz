@@ -49,17 +49,16 @@ window.addEventListener("load", function () {
     return highscores;
   } else {
     highscores = JSON.parse(localStorage.getItem("userHighscore"));
+    if (!Array.isArray(highscores)) {
+      highscores = [];
+    }
     highscores.forEach((score) => {
       let listItem = document.createElement("li");
       listItem.textContent = score;
-      listOfScores.appendChild(listItem);
+      let scoresOnLoad = listOfScores.querySelector("ul");
+      scoresOnLoad.appendChild(listItem);
     });
   }
-
-  if (!Array.isArray(highscores)) {
-    highscores = [];
-  }
-  console.log(highscores);
 });
 
 beginGame.addEventListener("click", function () {
@@ -77,8 +76,6 @@ function eventListeners() {
     button.addEventListener("click", function () {
       checkCorrect(button.textContent);
 
-      console.log("questionCount", questionCount);
-      console.log("questions.length", questions.length);
       if (questionCount === questions.length - 1) {
         questionCard.style.display = "none";
         enterInfo.style.display = "block";
@@ -108,6 +105,7 @@ function startTimer() {
     } else {
       timerEl.textContent = "Out of Time!";
       clearInterval(timeInterval);
+      resetGame();
       // If timer hit zero the quiz needs to end
     }
   }, 1000);
@@ -144,9 +142,11 @@ function storeHighscore() {
   } else {
     highscores.push(`${userInitials} - ${timeLeft}`);
     localStorage.setItem("userHighscore", JSON.stringify(highscores));
+    document.querySelector("#user-initials").value = "";
     let newScore = document.createElement("li");
     newScore.textContent = `${userInitials} - ${timeLeft}`;
-    listOfScores.appendChild(newScore);
+    let listOfScoresUl = listOfScores.querySelector("ul");
+    listOfScoresUl.appendChild(newScore);
     submitHighscore.disabled = true;
   }
 }
@@ -160,5 +160,28 @@ viewScoresButton.addEventListener("click", function () {
     listOfScores.style.display = "none";
   }
 });
+
+function resetGame() {
+  questionCount = 0;
+  timeLeft = 75;
+  submitHighscore.disabled = false;
+  questionCard.style.display = "flex";
+  enterInfo.style.display = "none";
+  listOfScores.style.display = "none";
+  questionContent.textContent =
+    "Here is a short quiz to test your basic knoledge of JavaScript. Your time is your score, wrong answers remove time! Beat your highscore by being quick and accurate! Have fun!";
+  document.querySelector(".correct-wrong").textContent = "";
+  beginGame.style.display = "block";
+  document.querySelector(".question-box-header").style.display = "block";
+  document
+    .querySelectorAll("[id*='answer']")
+    .forEach((button) => (button.style.display = "none"));
+}
+
+let restartButton1 = document.querySelector("#restart-button");
+let restartButton2 = document.querySelector("#restart-button-highscore");
+
+restartButton1.addEventListener("click", resetGame);
+restartButton2.addEventListener("click", resetGame);
 
 eventListeners();
