@@ -11,17 +11,11 @@
   <body>
     <header>
       <!-- TODO: Link to view highscores. Maybe dropdown? -->
-      <!-- TODO: Add timer to the top right of the screen. -->
-      <!-- Timer will also be the score -->
-      <p>High Scores Here</p>
+      <a id="view-highscores">View High Scores</a>
       <p class="timer">Time to complete quiz: 75 seconds</p>
     </header>
 
-    <section id="highscores-list"></section>
     <!-- <section class="code-question-card" id="question-1" hidden="hidden"> -->
-    <!-- 5 question quiz -->
-    <!-- TODO: Add the displayed queston -->
-    <!-- TODO: Add 4 multiple coice buttons -->
     <section class="landing-page-card" id="quiz-questions">
       <h1 class="question-box-header">JavaScript Quick Quiz!</h1>
       <h3 class="question-content">
@@ -29,22 +23,30 @@
         time is your score, wrong answers remove time! Beat your highscore by
         being quick and accurate! Have fun!
       </h3>
-      <button class="start-button">Start!</button>
-      <button id="answer-1"></button>
-      <button id="answer-2"></button>
-      <button id="answer-3"></button>
-      <button id="answer-4"></button>
+      <button class="button" id="start-button">Start!</button>
+      <button class="button" id="answer-1"></button>
+      <button class="button" id="answer-2"></button>
+      <button class="button" id="answer-3"></button>
+      <button class="button" id="answer-4"></button>
     </section>
+    <div class="correct-wrong"></div>
 
     <section class="landing-page-card" id="enter-highscores">
       <h2>Complete!</h2>
       <p id="final-score"></p>
       <label>Enter Initials:</label>
-      <input type="text" />
-      <input type="submit" />
+      <input type="text" id="user-initials" />
+      <input type="submit" id="submit-button" />
+      <button class="button" id="restart-button">Restart</button>
     </section>
 
-    <footer class="correct-wrong"></footer>
+    <!-- Listing Highscores -->
+    <section class="landing-page-card" id="highscores-list">
+      <h1>HighScores</h1>
+      <ul>
+        <!-- TODO: Add list items with the stored initials and highscores -->
+      </ul>
+    </section>
 
     <script src="./assets/js/script.js"></script>
   </body>

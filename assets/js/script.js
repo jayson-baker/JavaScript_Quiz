@@ -1,8 +1,12 @@
-let beginGame = document.querySelector(".start-button");
+let beginGame = document.querySelector("#start-button");
 let timerEl = document.querySelector(".timer");
 let questionContent = document.querySelector(".question-content");
 let questionCard = document.querySelector("#quiz-questions");
 let enterInfo = document.querySelector("#enter-highscores");
+let submitHighscore = document.querySelector("#submit-button");
+let viewScoresButton = document.querySelector("#view-highscores");
+let listOfScores = document.querySelector("#highscores-list");
+let highscores = [];
 let questionCount = 0;
 var timeLeft = 75;
 let timeInterval = null;
@@ -39,6 +43,25 @@ let questions = [
   },
 ];
 
+window.addEventListener("load", function () {
+  if (highscores === null) {
+    highscores = [];
+    return highscores;
+  } else {
+    highscores = JSON.parse(localStorage.getItem("userHighscore"));
+    highscores.forEach((score) => {
+      let listItem = document.createElement("li");
+      listItem.textContent = score;
+      listOfScores.appendChild(listItem);
+    });
+  }
+
+  if (!Array.isArray(highscores)) {
+    highscores = [];
+  }
+  console.log(highscores);
+});
+
 beginGame.addEventListener("click", function () {
   beginGame.style.display = "none";
   document.querySelector(".question-box-header").style.display = "none";
@@ -58,7 +81,7 @@ function eventListeners() {
       console.log("questions.length", questions.length);
       if (questionCount === questions.length - 1) {
         questionCard.style.display = "none";
-        enterInfo.style.display = "flex";
+        enterInfo.style.display = "block";
         clearInterval(timeInterval);
         document.querySelector(
           "#final-score"
@@ -113,5 +136,30 @@ function checkCorrect(ansr) {
     timeLeft -= 12;
   }
 }
+
+function storeHighscore() {
+  let userInitials = document.querySelector("#user-initials").value;
+  if (userInitials === "") {
+    alert("Please enter your inititals to track your score.");
+  } else {
+    highscores.push(`${userInitials} - ${timeLeft}`);
+    localStorage.setItem("userHighscore", JSON.stringify(highscores));
+    let newScore = document.createElement("li");
+    newScore.textContent = `${userInitials} - ${timeLeft}`;
+    listOfScores.appendChild(newScore);
+    submitHighscore.disabled = true;
+    submitHighscore.style.css.background.color = "grey";
+  }
+}
+
+submitHighscore.addEventListener("click", storeHighscore);
+
+viewScoresButton.addEventListener("click", function () {
+  if (listOfScores.style.display !== "block") {
+    listOfScores.style.display = "block";
+  } else {
+    listOfScores.style.display = "none";
+  }
+});
 
 eventListeners();

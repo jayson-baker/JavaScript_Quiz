@@ -19,12 +19,15 @@ header {
 }
 
 /* Interactive Question Card Styling */
-.landing-page-card {
+.landing-page-card,
+.highscores-card {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  position: relative;
-  margin: 0 auto;
+  position: absolute;
+  justify-self: center;
+  align-self: center;
+  margin: 80px auto;
   width: 65%;
   min-height: 600px;
   padding: 15px;
@@ -34,7 +37,14 @@ header {
   text-align: center;
 }
 
-button {
+#highscores-list {
+  z-index: 99;
+  background-color: white;
+  position: relative;
+  margin-top: 25px;
+}
+
+.button {
   color: white;
   background-color: rgb(39, 139, 0);
   font-size: 120%;
@@ -46,13 +56,17 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+.button:hover {
   background-color: #1bbbec;
 }
 
-button[id*="answer"] {
+.button[id*="answer"] {
   display: none;
   text-align: left;
+}
+
+#restart-button {
+  width: 70%;
 }
 
 footer {
@@ -61,6 +75,22 @@ footer {
   font-size: 300%;
 }
 
+#view-highscores {
+  cursor: pointer;
+  text-decoration: underline;
+  color: blue;
+}
+
 #enter-highscores {
   display: none;
+}
+
+#highscores-list {
+  display: none;
+}
+
+#correct-wrong {
+  position: sticky;
+  margin-bottom: 0;
+  font-size: 300%;
 }
