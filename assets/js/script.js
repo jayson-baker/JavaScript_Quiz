@@ -148,7 +148,6 @@ function storeHighscore() {
     newScore.textContent = `${userInitials} - ${timeLeft}`;
     listOfScores.appendChild(newScore);
     submitHighscore.disabled = true;
-    submitHighscore.style.css.background.color = "grey";
   }
 }
 

@@ -89,7 +89,7 @@ footer {
   display: none;
 }
 
-#correct-wrong {
+footer {
   position: sticky;
   margin-bottom: 0;
   font-size: 300%;
